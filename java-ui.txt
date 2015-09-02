@@ -1,0 +1,81 @@
+package map;
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class map extends Applet {
+	private int i,j,k;
+	
+
+	public void init()
+	{
+		Button[] btn= new Button[70];//创建按钮
+		for(k=0;k<=69;k++)
+		{
+			btn[k]= new Button();
+			btn[k].setLabel("0");
+		}
+	
+		
+		setLayout(new GridLayout(8,29));
+		for(j=0;j<=7;j++)
+		for(i=0;i<=28;i++)
+		{
+			
+			if(j==0&&(i>=1&&i<=27&&i!=14))//给上下两排添加按钮
+			    add(btn[i]);
+			else if (j==7&&(i>=1&&i<=27&&i!=14))
+				add(btn[i+35]);
+			
+			else if (j==0&&i==0)
+			{
+			   add(btn[0]);
+			   btn[0].setLabel("S");
+			}
+			else if (j==0&&i==28)
+			{
+				   add(btn[28]);
+				   btn[28].setLabel("T");
+			}
+			else if(j==7&&i==0)
+			{
+				   add(btn[63]);
+				   btn[63].setLabel("M");
+			}
+			else if(j==7&&i==28)
+			{
+				   add(btn[35]);
+				   btn[35].setLabel("G");
+			}
+			else if(i==14&&j==0)
+            {
+				   add(btn[14]);
+				   btn[14].setLabel("H");
+			}
+			else if (i==14&&j==7)
+			{
+				   add(btn[49]);
+				   btn[49].setLabel("P");
+			}
+			
+			else if(j>=1&&j<=6&&i==28)//给左右添加按钮
+				add(btn[28+j]);
+			
+			else if (i==0&&j>=1&&j<=6)
+			{
+				add(btn[63+j]);
+				btn[63+j].setLabel("$");
+			}
+			
+			else
+				add(new Label());
+		
+		}
+		
+		
+		
+		
+	}
+	
+
+}
