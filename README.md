@@ -9,5 +9,8 @@ coder 周文俊 李有为
 tester  吴卿蓉 王晴
 designer 周嘉琦 文炫达
 
+<<<<<<< HEAD
 this is a test
+=======
+>>>>>>> upstream/master
 

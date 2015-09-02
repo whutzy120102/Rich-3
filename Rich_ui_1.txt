@@ -1,0 +1,139 @@
+﻿/******************************************************************
+*版权所有： 小短腿项目组
+*描    述： 
+*创建日期： 2015-9-1
+*补丁编号： Rich_1
+*作    者： 周嘉琦
+*******************************************************************/
+//==============================修改历史===========================
+//      补丁编号                 修改人       日期           归属       备注
+//       Rich_1                  周嘉琦    2015-9-1        设计阶段    空                                                                 
+//=================================================================
+
+/*说明：
+以下内容是今天工作时间与10组马金涛同学讨论所得,只用于自身对这个过程的了解，后期将不沿用此代码。
+我是负责设计部分的，但是设计和开发是离不开的，很多设计事实上已经涉及了开发，以下是我今天的一些构思。
+
+今天我主要做了一个大致的界面，首先是一个程序的外框，也就是viewPanel类，
+然后在里面有个mapPanel的面板，但是程序中只有一个面板，所以就让它填充满。
+
+界面的想法是这样的：中间是地图，然后四个角落安放四个玩家的信息，包括人物识别的部分还有金币和点券数额
+然后界面上还应该有一个掷骰子的按钮，生成一个1-6的随机数并显示给玩家可见，还应该有一个显示剩余出牢或者
+出医院的天数。玩家用不同颜色的圆点进行标记，房产归属同玩家颜色进行标记，房产等级直接用数字123进行标记
+
+之前在设计的时候有一个难点，就是当两个玩家落到同一个点上的时候，应当如何标记，因为如果置换原有点的颜色
+的话，两个玩家又该如何处理，三个呢？四个呢？还有就是房产的等级问题，原先的设计思路是想在房产外标记一个
+对应颜色的原点，一级一个点，两级两个点。但是周文俊同学设计ui的时候给出将房产的图标显示为框而不是之前设
+定的字符，我们商量考虑在框中直接加入文本，用数字直接来记录房产的等级。然后就是玩家落到同一个点的问题，
+我们暂时定为将玩家落点放到房产外，
+如下简图
+ ------
+|      |
+ ------
+      *
+      *
+      *
+      *
+可简单实现落到同一点上的问题。至于让玩家指定道具摆放的位置，我的想法是，做一个文本框和按钮，开发人员是
+知道每个点的坐标的，把每个位置的坐标用A1，A2，B1这样的对应关系对应起来，玩家可以指定放在A1还是B1...点击
+确定按钮把这个值传到后台获取，得到对应的坐标位置，把道具的状态标上，即可。
+
+以上就是今天的收获。
+
+*/
+package rich_sdt;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class viewPanel extends JFrame implements ActionListener{
+	
+	mapPanel panel = null;
+	JButton row = null;
+	JLabel tip = null;
+	JTextField field = null;	
+	
+	public static void main(String[] args){
+		viewPanel view = new viewPanel();		
+	}
+//构造函数
+	viewPanel(){
+		panel = new mapPanel(); 
+		row =new JButton("Roll");
+		tip = new JLabel("当前投掷点数");
+		field = new JTextField("     ");	
+		
+		row.addActionListener(this);			
+		row.setActionCommand("row");
+		
+		panel.add(row);
+		panel.add(tip);
+		panel.add(field);
+		this.add(panel);
+		
+		this.setTitle("Rich4");
+		this.setSize(800, 600);
+		this.setLocation(300, 80);
+		this.setResizable(false);
+		this.setBackground(Color.white);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getActionCommand().equals("row"))
+		{
+			int i=(int)(Math.random()*6+1);
+			String str = i + "";
+			field.setText(str);
+//弹框显示roll到的数
+//JOptionPane.showMessageDialog(null,i);		
+		}
+	}
+}
+
+
+//地图构建
+//29,8;27,6;
+//120-160;680-160;120-440;680-440;四个角落
+//垂直间隔:280/7=40;水平间隔:560/28=20;
+//led=length edge distance;wed=width edge distance;
+class mapPanel extends JPanel{
+
+	 public void paint(Graphics g) {
+		  int led = 120;
+		  int wed = 160;
+		  g.drawString("S",led, wed);
+		  g.drawString("T",800-led, wed);
+		  g.drawString("G",led, 600-wed);
+		  g.drawString("M",800-led, 600-wed);		  
+		  
+//画点券区 和 右排房产
+		  for(int i=1;i<=6;i++)
+		  {
+		      g.drawString("$",led, wed+i*40);
+		      g.drawString("O",800-led, wed+i*40);
+		  }
+//画上下两排房产		  
+		  for(int i=1;i<=27;i++)
+		  {
+			  if(i==14)
+			  {   
+				  g.drawString("H",led+i*20, wed);
+			      g.drawString("P",led+i*20, 600-wed);
+			  }  
+			  else
+			  {
+			  g.drawString("O",led+i*20, wed);
+			  g.drawString("O",led+i*20, 600-wed);
+			  }
+		  }	  
+		  }
+}
+		
+
