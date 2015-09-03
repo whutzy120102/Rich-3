@@ -1,0 +1,346 @@
+package map;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+
+ public class map extends Frame {
+	private int i,j,k;
+	Panel p1,p2,p3,p4,p5,p6,p7;
+	Button[] btn= new Button[70];
+		
+	public map()
+	{
+		super("大富翁小游戏");
+		p1=new Panel();
+		p2=new Panel();
+		p3=new Panel();
+		p4=new Panel();
+		p5=new Panel();
+		p6=new Panel();
+		p7=new Panel();
+		
+		
+		Label[] lab= new Label[32];//建立32个label显示玩家信息，每个玩家8个
+		for(i=0;i<=31;i++)
+		{   
+			if(i%8==0)
+			{
+			    lab[i]= new Label("name");
+			    if(i>=0&&i<=7||i>=24&&i<=31)
+			    lab[i].setForeground(Color.orange);
+			    else
+			    lab[i].setForeground(Color.red);
+			}
+			else if(i%8==1)
+			{
+			    lab[i]= new Label("cash");
+			    if(i>=0&&i<=7||i>=24&&i<=31)
+			    lab[i].setForeground(Color.orange);
+			    else
+			    lab[i].setForeground(Color.red);
+			}
+			else if(i%8==2)
+			{
+				lab[i]= new Label("points");
+				if(i>=0&&i<=7||i>=24&&i<=31)
+				lab[i].setForeground(Color.orange);
+				else
+				lab[i].setForeground(Color.red);
+			}
+			else if(i%8==3)
+			{
+				lab[i]= new Label("house");
+				if(i>=0&&i<=7||i>=24&&i<=31)
+			    lab[i].setForeground(Color.orange);
+				else
+				lab[i].setForeground(Color.red);
+			}
+			else if(i%8==4)
+			{
+				lab[i]= new Label("state");
+				if(i>=0&&i<=7||i>=24&&i<=31)
+				lab[i].setForeground(Color.orange);
+				else
+				lab[i].setForeground(Color.red);
+			}
+			else if(i%8==5)
+			{
+				lab[i]= new Label("RoadBlock");
+				if(i>=0&&i<=7||i>=24&&i<=31)
+				lab[i].setForeground(Color.orange);
+				else
+				lab[i].setForeground(Color.red);
+			}
+			else if(i%8==6)
+			{
+				lab[i]= new Label("Boomb");
+				if(i>=0&&i<=7||i>=24&&i<=31)
+				lab[i].setForeground(Color.orange);
+				else
+				lab[i].setForeground(Color.red);
+			}
+			else 
+			{
+				lab[i]= new Label("Robot");
+				if(i>=0&&i<=7||i>=24&&i<=31)
+				lab[i].setForeground(Color.orange);
+				else
+				lab[i].setForeground(Color.red);
+			}
+			
+		}
+
+		TextField[] tf= new TextField[32];
+		for(i=0;i<=31;i++)
+		{   
+			if(i%8==0)
+			{
+			    tf[i]= new TextField();
+			    
+			}
+			else if(i%8==1)
+			{
+				tf[i]= new TextField();
+			   
+			}
+			else if(i%8==2)
+			{
+				tf[i]= new TextField();
+				
+			}
+			else if(i%8==3)
+			{
+				tf[i]= new TextField();
+				
+			}
+			else if(i%8==4)
+			{
+				tf[i]= new TextField();
+				
+			}
+			else if(i%8==5)
+			{
+				tf[i]= new TextField();
+				
+			}
+			else if(i%8==6)
+			{
+				tf[i]= new TextField();
+				
+			}
+			else 
+			{
+				tf[i]= new TextField();
+				
+			}
+			
+		}
+		
+		
+	
+		p1.setLayout(new GridLayout(8,29));
+		p2.setLayout(new GridLayout(2,2));
+		p4.setLayout(new GridLayout(8,2));
+		p5.setLayout(new GridLayout(8,2));
+		p6.setLayout(new GridLayout(8,2));
+		p7.setLayout(new GridLayout(8,2));
+		
+		p1.setBackground(Color.blue);
+		p2.setBackground(Color.orange);
+		p3.setBackground(Color.cyan);
+		p4.setBackground(Color.darkGray);
+		p5.setBackground(Color.LIGHT_GRAY);
+		p6.setBackground(Color.LIGHT_GRAY);
+		p7.setBackground(Color.darkGray);
+		
+		
+		p2.add(p4);//在p2中添加4个panel
+		p2.add(p5);
+		p2.add(p6);
+		p2.add(p7);
+		
+		p4.add(lab[0]);//第一个玩家的label和TextField
+		p4.add(tf[0]);
+		p4.add(lab[1]);
+		p4.add(tf[1]);
+		p4.add(lab[2]);
+		p4.add(tf[2]);
+		p4.add(lab[3]);
+		p4.add(tf[3]);
+		p4.add(lab[4]);
+		p4.add(tf[4]);
+		p4.add(lab[5]);
+		p4.add(tf[5]);
+		p4.add(lab[6]);
+		p4.add(tf[6]);
+		p4.add(lab[7]);
+		p4.add(tf[7]);
+		
+		
+		p5.add(lab[8]);//第二个玩家的label和TextField
+		p5.add(tf[8]);
+		p5.add(lab[9]);
+		p5.add(tf[9]);
+		p5.add(lab[10]);
+		p5.add(tf[10]);
+		p5.add(lab[11]);
+		p5.add(tf[11]);
+		p5.add(lab[12]);
+		p5.add(tf[12]);
+		p5.add(lab[13]);
+		p5.add(tf[13]);
+		p5.add(lab[14]);
+		p5.add(tf[14]);
+		p5.add(lab[15]);
+		p5.add(tf[15]);
+		
+		
+		
+		p6.add(lab[16]);//第三个玩家的label和TextField
+		p6.add(tf[16]);
+		p6.add(lab[17]);
+		p6.add(tf[17]);
+		p6.add(lab[18]);
+		p6.add(tf[18]);
+		p6.add(lab[19]);
+		p6.add(tf[19]);
+		p6.add(lab[20]);
+		p6.add(tf[20]);
+		p6.add(lab[21]);
+		p6.add(tf[21]);
+		p6.add(lab[22]);
+		p6.add(tf[22]);
+		p6.add(lab[23]);
+		p6.add(tf[23]);
+		
+	
+		
+		p7.add(lab[24]);//第四个玩家的label和TextField
+		p7.add(tf[24]);
+		p7.add(lab[25]);
+		p7.add(tf[25]);
+		p7.add(lab[26]);
+		p7.add(tf[26]);
+		p7.add(lab[27]);
+		p7.add(tf[27]);
+		p7.add(lab[28]);
+		p7.add(tf[28]);
+		p7.add(lab[29]);
+		p7.add(tf[29]);
+		p7.add(lab[30]);
+		p7.add(tf[30]);
+		p7.add(lab[31]);
+		p7.add(tf[31]);
+		
+	
+		Button b= new Button("asdf");
+		p3.add(b);
+		b.setBounds(1400, 600, 50,50);
+		
+		
+	    this.setLayout(null);//设置panel的位置及大小
+		p1.setBounds(0,30,700,500);
+		p2.setBounds(700,30,700,500);
+		p3.setBounds(0,530,1400,500);
+		
+		 add(p1,BorderLayout.CENTER);//给panel添加方位
+		 add(p2,BorderLayout.EAST);
+		 add(p3,BorderLayout.SOUTH);
+	    
+	
+		 draw();//调用draw方法画图
+		
+		
+
+        setSize(500, 600);
+		setVisible(true);
+		addWindowListener(new Handle());
+		
+		
+	}
+	
+	public void draw() {
+		//  Button[] btn= new Button[70];
+		for(k=0;k<=69;k++)//创建按钮并初始化按钮
+		{   
+			btn[k]= new Button();
+			btn[k].setLabel("0");
+		}
+		
+		 
+		for(j=0;j<=7;j++)//画地图
+		for(i=0;i<=28;i++)
+		{
+			
+			if(j==0&&(i>=1&&i<=27&&i!=14))//给上下两排添加按钮
+			       p1.add(btn[i]);
+			else if (j==7&&(i>=1&&i<=27&&i!=14))
+				   p1.add(btn[i+35]);
+			 
+			else if (j==0&&i==0)
+			{
+			       p1.add(btn[0]);
+			       btn[0].setLabel("S");
+			}
+			else if (j==0&&i==28)
+			{
+				   p1.add(btn[28]);
+				   btn[28].setLabel("T");
+			}
+			else if(j==7&&i==0)
+			{
+				   p1.add(btn[63]);
+				   btn[63].setLabel("M");
+			}
+			else if(j==7&&i==28)
+			{
+				   p1.add(btn[35]);
+				   btn[35].setLabel("G");
+			}
+			else if(i==14&&j==0)
+            {
+				   p1.add(btn[14]);
+				   btn[14].setLabel("H");
+			}
+			else if (i==14&&j==7)
+			{
+				   p1.add(btn[49]);
+				   btn[49].setLabel("P");
+			}
+			
+			else if(j>=1&&j<=6&&i==28)//给左右添加按钮
+				   p1.add(btn[28+j]);
+			
+			else if (i==0&&j>=1&&j<=6)
+			{
+				p1.add(btn[63+j]);
+				btn[63+j].setLabel("$");
+			}
+			
+			else
+				p1.add(new Label());
+		
+		}
+		
+	}
+
+	
+	
+	
+	class Handle extends WindowAdapter
+	{
+		public void windowClosing(WindowEvent e)
+		{
+			(e.getWindow()).dispose();
+			System.exit(0);
+		}
+	}
+	
+	public static void main(String args[])
+	{
+		new map();
+	}
+
+}
