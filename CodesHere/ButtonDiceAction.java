@@ -133,6 +133,14 @@ public class ButtonDiceAction implements ActionListener {
 			int oldPlayerBombLoc = player[flag-1].getLocation();
 			player[flag-1].moveForward(steps);
 			int newPlayerBombLoc = player[flag-1].getLocation();
+			// 如果刚好到达的新地点有路障，就将路障清除
+
+			if(MainT.markLocation.get(newPlayerBombLoc).getIsToolState().equals("isRoadBlock")) {
+				MainT.markLocation.get(newPlayerBombLoc).setIsToolState("isEmpty");
+				String oldText0 = labelList.get(newPlayerBombLoc).getText();
+				oldText0 = oldText0.replaceAll("/R", "");
+				labelList.get(newPlayerBombLoc).setText(oldText0);
+			}
 			if((oldPlayerBombLoc+ steps) != 14 && newPlayerBombLoc==14) {	// 说明踩到炸弹了，炸到医院，没有按loc+steps来走
 				String oldText = labelList.get(oldPlayerBombLoc+ steps).getText();
 //				System.out.println("oldText:" + oldText);
@@ -327,6 +335,13 @@ public class ButtonDiceAction implements ActionListener {
 			int oldPlayerBombLoc = player[flag-1].getLocation();
 			player[flag-1].moveForward(steps);
 			int newPlayerBombLoc = player[flag-1].getLocation();
+			// 如果刚好到达的新地点有路障，就将路障清除
+			if(MainT.markLocation.get(newPlayerBombLoc).getIsToolState().equals("isRoadBlock")) {
+				MainT.markLocation.get(newPlayerBombLoc).setIsToolState("isEmpty");
+				String oldText0 = labelList.get(newPlayerBombLoc).getText();
+				oldText0 = oldText0.replaceAll("/R", "");
+				labelList.get(newPlayerBombLoc).setText(oldText0);
+			}
 			if((oldPlayerBombLoc+ steps) != 14 && newPlayerBombLoc==14) {	// 说明踩到炸弹了，炸到医院，没有按loc+steps来走
 				String oldText = labelList.get(oldPlayerBombLoc+ steps).getText();
 				oldText = oldText.replaceFirst("/B", "");
@@ -510,6 +525,13 @@ public class ButtonDiceAction implements ActionListener {
 					int oldPlayerBombLoc = player[flag-1].getLocation();
 					player[flag-1].moveForward(steps);
 					int newPlayerBombLoc = player[flag-1].getLocation();
+					// 如果刚好到达的新地点有路障，就将路障清除
+					if(MainT.markLocation.get(newPlayerBombLoc).getIsToolState().equals("isRoadBlock")) {
+						MainT.markLocation.get(newPlayerBombLoc).setIsToolState("isEmpty");
+						String oldText0 = labelList.get(newPlayerBombLoc).getText();
+						oldText0 = oldText0.replaceAll("/R", "");
+						labelList.get(newPlayerBombLoc).setText(oldText0);
+					}
 					if((oldPlayerBombLoc+ steps) != 14 && newPlayerBombLoc==14) {	// 说明踩到炸弹了，炸到医院，没有按loc+steps来走
 						String oldText = labelList.get(oldPlayerBombLoc+ steps).getText();
 						oldText = oldText.replaceFirst("/B", "");
@@ -700,6 +722,13 @@ public class ButtonDiceAction implements ActionListener {
 					int oldPlayerBombLoc = player[flag-1].getLocation();
 					player[flag-1].moveForward(steps);
 					int newPlayerBombLoc = player[flag-1].getLocation();
+					// 如果刚好到达的新地点有路障，就将路障清除
+					if(MainT.markLocation.get(newPlayerBombLoc).getIsToolState().equals("isRoadBlock")) {
+					MainT.markLocation.get(newPlayerBombLoc).setIsToolState("isEmpty");
+					String oldText0 = labelList.get(newPlayerBombLoc).getText();
+					oldText0 = oldText0.replaceAll("/R", "");
+					labelList.get(newPlayerBombLoc).setText(oldText0);
+					}
 					if((oldPlayerBombLoc+ steps) != 14 && newPlayerBombLoc==14) {	// 说明踩到炸弹了，炸到医院，没有按loc+steps来走
 						String oldText = labelList.get(oldPlayerBombLoc+ steps).getText();
 						oldText = oldText.replaceFirst("/B", "");
@@ -887,6 +916,197 @@ public class ButtonDiceAction implements ActionListener {
 		}
 	}
 
+
+
+
+	
+	/*
+	 * 每轮结束，判断所有玩家的当前状态，判断谁胜出
+	 */
+	
+	public void checkVictory(Player[] players,int flag) {
+		int num =  players.length;
+		if(num==2) {
+			if(players[0].getState()==5) {
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[1].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！" + "","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+			} else if(players[1].getState()==5){  	//2号玩家为出局
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[0].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！" + "","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+				
+			}
+		} else if(num==3) {
+			if(players[1].getState()==5 && players[0].getState()==5) {
+				// 玩家3号胜利
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[2].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！" + "","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+				
+			} else if(players[1].getState()==5 && players[2].getState()==5) {
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[0].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+				
+			} else if(players[0].getState()==5 && players[2].getState()==5) {
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[1].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+				
+			}
+			
+			
+		} else if(num==4) {
+			if(players[0].getState()==5 && players[1].getState()==5 && players[2].getState()==5) {
+				// 玩家4胜
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[3].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+			} else if(players[0].getState()==5 && players[1].getState()==5 && players[3].getState()==5) {
+				// 玩家3胜
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[2].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+			} else if(players[3].getState()==5 && players[1].getState()==5 && players[2].getState()==5) {
+				// 玩家1胜
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[0].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+			} else if(players[3].getState()==5 && players[0].getState()==5 && players[2].getState()==5) {
+				// 玩家2胜
+				int ret = JOptionPane.showConfirmDialog(null,"恭喜您： " + "" + players[1].getPlayerName() 
+						+ "  ,其他玩家已经出局，您获得胜利！"
+						+ "点击是，重新开始新游戏，点击否退出游戏！","游戏结束提醒",
+						JOptionPane.YES_NO_OPTION);
+				if(ret==0) {
+					if(0==JOptionPane.showConfirmDialog(null, "哈哈哈，重新开始还是退出~~~", "乖乖退出",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					} else {
+						System.exit(0);
+					}
+				} else if(ret==1) {
+					if(0==JOptionPane.showConfirmDialog(null, "确定退出？？", "确认退出？",JOptionPane.YES_NO_OPTION )){
+						System.exit(0);
+					}
+				} else {
+					System.exit(0);
+				}
+			}
+		}
+	}
 	/**
 	 *  将下一个玩家高亮
 	 * @param houseMap
